@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Projects</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                overflow: hidden !important;
+                background-color: #141414;
+            }
+
+            .container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+            }
+
+            .items {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                column-gap: 15px;
+            }
+
+            .items .project_item {
+                width: 200px;
+                height: 200px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                background-color: #f1f1f1;
+                border-radius: 10px;
+                margin: 10px;
+                cursor: pointer;
+                transition: all 0.3s ease-in-out;
+                text-decoration: none;
+                color: #000;
+                font-size: 24px;
+                font-weight: 900;
+            }
+
+            .items .project_item:hover{
+                transform: translateY(-20px);
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="items">
+                <a href="https://clean-blog-template.vercel.app/" class="project_item" target="_blank">
+                    Clean Blog
+                </a>
+                <a href="https://horse-race-red.vercel.app/" class="project_item" target="_blank">
+                    Horse Race
+                </a>
+            </div>
+        </div>
+    </body>
+
+</html>
