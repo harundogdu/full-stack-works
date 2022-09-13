@@ -1,0 +1,25 @@
+nav {
+  @include container;
+  @include flex(space-between);
+  transition: all 0.1s ease-in-out;
+  position: relative;
+  z-index: 2;
+  padding: 0.5rem 3rem;
+  height: 85px;
+  .brand-logo a {
+    font-size: 1.6rem;
+    color: $white;
+    font-weight: $extraBold;
+  }
+  ul {
+    @include flex;
+    column-gap: 25px;
+    li a {
+      color: $white;
+      font-size: 0.75rem;
+      font-weight: $extraBold;
+      letter-spacing: 0.0625em;
+      text-transform: uppercase;
+    }
+  }
+}
