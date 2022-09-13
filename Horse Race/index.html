@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Horse Race</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Poppins', sans-serif;
+            }
+
+            body {
+                background-color: #f2f2f2;
+                overflow: hidden !important;
+            }
+
+            .container {
+                width: 100%;
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+
+            .container #finishLine {
+                position: absolute;
+                top: 0;
+                right: 5%;
+                z-index: 1;
+                height: 100%;
+                border: 3px dashed #000;
+            }
+
+            #horse-area {
+                width: 90%;
+                height: 75%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: green;
+                flex-direction: column;
+                border-left: 5px solid #000;
+                position: relative;
+                overflow: hidden;
+                border-bottom: 5px solid #000;
+                border-top: 5px solid #000;
+            }
+
+            .container button {
+                border: none;
+                border-radius: 5px;
+                background-color: #ccc;
+                margin-top: 20px;
+                cursor: pointer;
+                font-size: 24px;
+                padding: 10px 20px;
+            }
+
+            #horse-area .horse-area_item {
+                width: 100%;
+                height: 100px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                border-top: 5px solid #000;
+                position: relative;
+            }
+
+            #horse-area .horse-area_item::after {
+                content: '0';
+                position: absolute;
+                top: 50%;
+                right: 2%;
+                transform: translateY(-50%);
+                font-size: 34px;
+                color: #fff;
+                font-weight: bold;
+                z-index: 1;
+            }
+
+            #horse-area .horse-area_item.horseOne::after {
+                content: '1' !important;
+            }
+
+            #horse-area .horse-area_item.horseTwo::after {
+                content: '2' !important;
+            }
+
+            #horse-area .horse-area_item.horseThree::after {
+                content: '3' !important;
+            }
+
+            #horse-area .horse-area_item.horseFour::after {
+                content: '4' !important;
+            }
+
+            #horse-area .horse-area_item.horseFive::after {
+                content: '5' !important;
+            }
+
+            #horse-area .horse-area_item.horseSix::after {
+                content: '6' !important;
+            }
+
+            #horse-area .horse-area_item.horseSeven::after {
+                content: '7' !important;
+            }
+
+            #horse-area .horse-area_item:first-child {
+                border-top: none;
+            }
+
+            #horse-area .horse-area_item img {
+                transition: all 1s linear;
+                width: 200px;
+                height: 80px;
+                object-fit: contain;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 2;
+            }
+
+            .container #infoText {
+                font-size: 48px;
+                margin-bottom: 20px;
+                color: darkgreen;
+            }
+
+            .container .button-area {
+                display: flex;
+                align-items: center;
+                column-gap: 10px;
+                width: 75%;
+            }
+
+            .container #btnStartAgain {
+                display: none;
+                transition: all 0.5s linear;
+            }
+
+            .container .infoContainer {
+                width: 90%;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                column-gap: 430px;
+            }
+
+            .container .infoContainer #leaderboardContainer {
+                width: 25%;
+                display: flex;
+                align-items: flex-start;
+                flex-direction: column;
+                padding-left: 15px;
+            }
+
+            .container .infoContainer #leaderboardContainer #winnerHorse {
+                color: red;
+                font-weight: 700;
+                font-size: 18px;
+            }
+
+            .container .infoContainer #leaderboardContainer #winnerTime {
+                color: blue;
+                font-weight: 700;
+                font-size: 18px;
+            }
+
+        </style>
+    </head>
+
+    <body>
+
+        <div class="container">
+            <p id="infoText">The first will be written here.</p>
+            <div id="horse-area">
+                <div class="horse-area_item horseOne">
+                    <img src="images/1.png" alt="horse" id="horseOne">
+                </div>
+                <div class="horse-area_item horseTwo">
+                    <img src="images/2.png" alt="horse" id="horseTwo">
+                </div>
+                <div class="horse-area_item horseThree">
+                    <img src="images/3.png" alt="horse" id="horseThree">
+                </div>
+                <div id="finishLine"></div>
+                <div class="horse-area_item horseFour">
+                    <img src="images/2.png" alt="horse" id="horseFour">
+                </div>
+
+                <div class="horse-area_item horseFive">
+                    <img src="images/1.png" alt="horse" id="horseFive">
+                </div>
+
+                <div class="horse-area_item horseSix">
+                    <img src="images/3.png" alt="horse" id="horseSix">
+                </div>
+                <div class="horse-area_item horseSeven">
+                    <img src="images/2.png" alt="horse" id="horseSeven">
+                </div>
+            </div>
+            <div class="infoContainer">
+                <div id="leaderboardContainer"></div>
+                <div class="button-area">
+                    <button id="btnStartRace">Start The Race</button>
+                    <button id="btnStartAgain">Restart The Race</button>
+                </div>
+            </div>
+        </div>
+
+        <audio controls id="horseMusic">
+            <source src="music/horse.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
+        <script>
+            const HORSE_SPEED = 40;
+            const BASE_ANIMATION_TIME = 100;
+
+            let horseOneLeftDistance = 0,
+                horseTwoLeftDistance = 0,
+                horseThreeLeftDistance = 0,
+                horseFourLeftDistance = 0,
+                horseFiveLeftDistance = 0,
+                horseSixLeftDistance = 0,
+                horseSevenLeftDistance = 0;
+
+            const
+                horseArea = document.getElementById('horse-area'),
+                horseOne = document.getElementById('horseOne'),
+                horseTwo = document.getElementById('horseTwo'),
+                horseThree = document.getElementById('horseThree'),
+                horseFour = document.getElementById('horseFour'),
+                horseFive = document.getElementById('horseFive'),
+                horseSix = document.getElementById('horseSix'),
+                horseSeven = document.getElementById('horseSeven'),
+                btnStartRace = document.getElementById('btnStartRace'),
+                btnStartAgain = document.getElementById('btnStartAgain'),
+                infoText = document.getElementById('infoText'),
+                leaderboardContainer = document.getElementById('leaderboardContainer'),
+                finishLine = document.getElementById('finishLine'),
+                horseMusic = document.getElementById('horseMusic'),
+                finishLineOffsetLeft = finishLine.offsetLeft - (horseArea.offsetLeft + finishLine.offsetWidth + 40);
+
+            horseOne.style.content = "1";
+            horseTwo.style.content = "2";
+            horseThree.style.content = "3";
+            horseFour.style.content = "4";
+            horseFive.style.content = "5";
+            horseSix.style.content = "6";
+            horseSeven.style.content = "7";
+
+            function getRandomNumber() { return Math.floor(Math.random() * HORSE_SPEED) + 1; }
+
+            function checkWinner() {
+                if (horseOneLeftDistance >= finishLineOffsetLeft) {
+                    horseOne.style.left = finishLineOffsetLeft + 'px';
+                    return "One";
+                }
+                if (horseTwoLeftDistance >= finishLineOffsetLeft) {
+                    horseTwo.style.left = finishLineOffsetLeft + 'px';
+                    return "Two";
+                }
+                if (horseThreeLeftDistance >= finishLineOffsetLeft) {
+                    horseThree.style.left = finishLineOffsetLeft + 'px';
+                    return "Three";
+                }
+                if (horseFourLeftDistance >= finishLineOffsetLeft) {
+                    horseFour.style.left = finishLineOffsetLeft + 'px';
+                    return "Four";
+                }
+                if (horseFiveLeftDistance >= finishLineOffsetLeft) {
+                    horseFive.style.left = finishLineOffsetLeft + 'px';
+                    return "Five";
+                }
+                if (horseSixLeftDistance >= finishLineOffsetLeft) {
+                    horseSix.style.left = finishLineOffsetLeft + 'px';
+                    return "Six";
+                }
+                if (horseSevenLeftDistance >= finishLineOffsetLeft) {
+                    horseSeven.style.left = finishLineOffsetLeft + 'px';
+                    return "Seven";
+                }
+
+                return false
+            }
+
+            function checkLeader() {
+                const leader = Math.max(horseOneLeftDistance, horseTwoLeftDistance, horseThreeLeftDistance, horseFourLeftDistance, horseFiveLeftDistance, horseSixLeftDistance, horseSevenLeftDistance)
+                if (leader === horseOneLeftDistance) return 'One'
+                if (leader === horseTwoLeftDistance) return 'Two'
+                if (leader === horseThreeLeftDistance) return 'Three'
+                if (leader === horseFourLeftDistance) return 'Four'
+                if (leader === horseFiveLeftDistance) return 'Five'
+                if (leader === horseSixLeftDistance) return 'Six'
+                if (leader === horseSevenLeftDistance) return 'Seven'
+            }
+
+            function setWinnerToLocalStorage(time, winner) {
+                const data = {
+                    time,
+                    winner
+                }
+                const oldData = JSON.parse(localStorage.getItem('horse-race'));
+
+                if (oldData && data.time <= oldData.time) {
+                    localStorage.setItem('horse-race', JSON.stringify(data))
+                    return
+                }
+
+                if (!oldData) {
+                    localStorage.setItem('horse-race', JSON.stringify(data))
+                    return;
+                }
+            }
+
+            function getWinnerFromLocalStorage() {
+                const data = JSON.parse(localStorage.getItem('horse-race'))
+                if (data) {
+                    leaderboardContainer.innerHTML = `<p>G.O.A.T. horse is <span id="winnerHorse">Horse ${data.winner}</span></p> <p> G.O.A.T. the time is <span id="winnerTime">${data.time}</span> seconds </p>`
+                    return;
+                }
+
+                leaderboardContainer.innerHTML = "Anyone has not won yet."
+            }
+
+            function startRace() {
+                let startTimeSeconds = new Date().getTime() / 1000;
+                const reaceInterval = setInterval(() => {
+                    if (checkWinner()) {
+                        clearInterval(reaceInterval);
+                        setTimeout(() => {
+                            infoText.innerText = `The Horse ${checkWinner()} Won The Race!`
+                            const endTimeSeconds = new Date().getTime() / 1000;
+                            const time = endTimeSeconds - startTimeSeconds;
+                            setWinnerToLocalStorage(time.toFixed(2), checkWinner())
+                            getWinnerFromLocalStorage();
+                            convertPNGorGIF(false)
+                        }, 1000)
+                        return;
+                    }
+                    infoText.innerText = `The Horse ${checkLeader()} Leader Now!`
+
+                    horseOneLeftDistance += getRandomNumber()
+                    horseTwoLeftDistance += getRandomNumber()
+                    horseThreeLeftDistance += getRandomNumber()
+                    horseFourLeftDistance += getRandomNumber()
+                    horseFiveLeftDistance += getRandomNumber()
+                    horseSixLeftDistance += getRandomNumber()
+                    horseSevenLeftDistance += getRandomNumber()
+
+                    horseOne.style.left = horseOneLeftDistance + 'px'
+                    horseTwo.style.left = horseTwoLeftDistance + 'px'
+                    horseThree.style.left = horseThreeLeftDistance + 'px'
+                    horseFour.style.left = horseFourLeftDistance + 'px'
+                    horseFive.style.left = horseFiveLeftDistance + 'px'
+                    horseSix.style.left = horseSixLeftDistance + 'px'
+                    horseSeven.style.left = horseSevenLeftDistance + 'px'
+
+                }, BASE_ANIMATION_TIME)
+
+            }
+
+            function convertPNGorGIF(type = true) {
+                if (type) {
+                    horseOne.src = '/Horse Race/images/1.gif';
+                    horseTwo.src = '/Horse Race/images/2.gif';
+                    horseThree.src = '/Horse Race/images/3.gif';
+                    horseFour.src = '/Horse Race/images/2.gif';
+                    horseFive.src = '/Horse Race/images/1.gif';
+                    horseSix.src = '/Horse Race/images/3.gif';
+                    horseSeven.src = '/Horse Race/images/2.gif';
+                } else {
+                    horseOne.src = '/Horse Race/images/1.png';
+                    horseTwo.src = '/Horse Race/images/2.png';
+                    horseThree.src = '/Horse Race/images/3.png';
+                    horseFour.src = '/Horse Race/images/2.png';
+                    horseFive.src = '/Horse Race/images/1.png';
+                    horseSix.src = '/Horse Race/images/3.png';
+                    horseSeven.src = '/Horse Race/images/2.png';
+                }
+
+            }
+
+            getWinnerFromLocalStorage();
+
+            function handleStartRaceClick() {
+                btnStartRace.style.display = 'none';
+                btnStartAgain.style.display = 'block';
+                convertPNGorGIF();
+                startRace()
+                horseMusic.play();
+            }
+
+            btnStartRace.addEventListener('click', handleStartRaceClick)
+            btnStartAgain.addEventListener('click', () => {
+                location.reload()
+            })
+        </script>
+
+    </body>
+
+</html>
