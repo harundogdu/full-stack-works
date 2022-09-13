@@ -36,7 +36,7 @@
                 right: 5%;
                 z-index: 1;
                 height: 100%;
-                border: 3px dashed #000;
+                border-left: 5px dashed #000;
             }
 
             #horse-area {
@@ -60,7 +60,7 @@
                 background-color: #ccc;
                 margin-top: 20px;
                 cursor: pointer;
-                font-size: 24px;
+                font-size: 18px;
                 padding: 10px 20px;
             }
 
@@ -121,8 +121,8 @@
 
             #horse-area .horse-area_item img {
                 transition: all 1s linear;
-                width: 200px;
-                height: 80px;
+                width: 120px;
+                height: 60px;
                 object-fit: contain;
                 position: absolute;
                 top: 0;
@@ -131,16 +131,21 @@
             }
 
             .container #infoText {
-                font-size: 48px;
-                margin-bottom: 20px;
+                font-size: 36px;
+                margin-bottom: 10px;
                 color: darkgreen;
             }
 
             .container .button-area {
                 display: flex;
                 align-items: center;
+                justify-content: center;
                 column-gap: 10px;
-                width: 75%;
+                width: 100%;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
             }
 
             .container #btnStartAgain {
@@ -153,15 +158,16 @@
                 display: flex;
                 align-items: center;
                 justify-content: flex-start;
-                column-gap: 430px;
+                position: relative;
             }
 
             .container .infoContainer #leaderboardContainer {
-                width: 25%;
+                width: 35%;
                 display: flex;
                 align-items: flex-start;
                 flex-direction: column;
                 padding-left: 15px;
+                padding-top: 5px;
             }
 
             .container .infoContainer #leaderboardContainer #winnerHorse {
@@ -185,28 +191,28 @@
             <p id="infoText">The first will be written here.</p>
             <div id="horse-area">
                 <div class="horse-area_item horseOne">
-                    <img src="images/1.png" alt="horse" id="horseOne">
+                    <img src="./images/1.png" alt="horse" id="horseOne">
                 </div>
                 <div class="horse-area_item horseTwo">
-                    <img src="images/2.png" alt="horse" id="horseTwo">
+                    <img src="./images/2.png" alt="horse" id="horseTwo">
                 </div>
                 <div class="horse-area_item horseThree">
-                    <img src="images/3.png" alt="horse" id="horseThree">
+                    <img src="./images/3.png" alt="horse" id="horseThree">
                 </div>
                 <div id="finishLine"></div>
                 <div class="horse-area_item horseFour">
-                    <img src="images/2.png" alt="horse" id="horseFour">
+                    <img src="./images/2.png" alt="horse" id="horseFour">
                 </div>
 
                 <div class="horse-area_item horseFive">
-                    <img src="images/1.png" alt="horse" id="horseFive">
+                    <img src="./images/1.png" alt="horse" id="horseFive">
                 </div>
 
                 <div class="horse-area_item horseSix">
-                    <img src="images/3.png" alt="horse" id="horseSix">
+                    <img src="./images/3.png" alt="horse" id="horseSix">
                 </div>
                 <div class="horse-area_item horseSeven">
-                    <img src="images/2.png" alt="horse" id="horseSeven">
+                    <img src="./images/2.png" alt="horse" id="horseSeven">
                 </div>
             </div>
             <div class="infoContainer">
@@ -219,7 +225,7 @@
         </div>
 
         <audio controls id="horseMusic">
-            <source src="music/horse.mp3" type="audio/mpeg">
+            <source src="./music/horse.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
 
@@ -250,7 +256,7 @@
                 leaderboardContainer = document.getElementById('leaderboardContainer'),
                 finishLine = document.getElementById('finishLine'),
                 horseMusic = document.getElementById('horseMusic'),
-                finishLineOffsetLeft = finishLine.offsetLeft - (horseArea.offsetLeft + finishLine.offsetWidth + 40);
+                finishLineOffsetLeft = finishLine.offsetLeft - (horseArea.offsetLeft + finishLine.offsetWidth);
 
             horseOne.style.content = "1";
             horseTwo.style.content = "2";
@@ -373,21 +379,21 @@
 
             function convertPNGorGIF(type = true) {
                 if (type) {
-                    horseOne.src = '/Horse Race/images/1.gif';
-                    horseTwo.src = '/Horse Race/images/2.gif';
-                    horseThree.src = '/Horse Race/images/3.gif';
-                    horseFour.src = '/Horse Race/images/2.gif';
-                    horseFive.src = '/Horse Race/images/1.gif';
-                    horseSix.src = '/Horse Race/images/3.gif';
-                    horseSeven.src = '/Horse Race/images/2.gif';
+                    horseOne.src = './images/1.gif';
+                    horseTwo.src = './images/2.gif';
+                    horseThree.src = './images/3.gif';
+                    horseFour.src = './images/2.gif';
+                    horseFive.src = './images/1.gif';
+                    horseSix.src = './images/3.gif';
+                    horseSeven.src = './images/2.gif';
                 } else {
-                    horseOne.src = '/Horse Race/images/1.png';
-                    horseTwo.src = '/Horse Race/images/2.png';
-                    horseThree.src = '/Horse Race/images/3.png';
-                    horseFour.src = '/Horse Race/images/2.png';
-                    horseFive.src = '/Horse Race/images/1.png';
-                    horseSix.src = '/Horse Race/images/3.png';
-                    horseSeven.src = '/Horse Race/images/2.png';
+                    horseOne.src = './images/1.png';
+                    horseTwo.src = './images/2.png';
+                    horseThree.src = './images/3.png';
+                    horseFour.src = './images/2.png';
+                    horseFive.src = './images/1.png';
+                    horseSix.src = './images/3.png';
+                    horseSeven.src = './images/2.png';
                 }
 
             }
