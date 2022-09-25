@@ -1,0 +1,6 @@
+Arkadaşlar bir obje listesini ( https://northwind.vercel.app/api/suppliers ) alıp bir table da listeleyeceksiniz. Sonra table en üst tarafına removeAll butonu koyacaksınız. Ona tıkladığımızda tüm tablo içeriği silinecek. Ayrıca her tablo satırının yanında bir delete butonu olacak.
+
+Son olarak opsiyonel 
+Bir input ve bir buton koyacaksınız. Butona tıkladığımda inputa girdiğim veriyi tablo içersisinde arayacak
+
+istediğiniz kolon veya kolonlarda search edebilirsiniz
