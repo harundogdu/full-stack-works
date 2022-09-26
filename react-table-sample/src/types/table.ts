@@ -8,4 +8,5 @@ export interface ITableHeader {
 export interface ITable {
     columns: ITableHeader[];
     data: ISuppliers[];
+    itemDeleteClick: (id: number) => void;
 }
