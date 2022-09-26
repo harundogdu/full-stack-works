@@ -1,9 +1,9 @@
-import { Home } from './pages';
+import { Table } from 'containers';
 
 function App() {
   return (
     <div className='app'>
-      <Home />
+      <Table />
     </div>
   );
 }
