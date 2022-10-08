@@ -1,6 +1,6 @@
 import { genSaltSync, hashSync } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-import userModel from '../models/user.model';
+import { UserModel } from '../models';
 import { LoginSchema, RegisterSchema } from '../types';
 
 export default {
@@ -11,7 +11,7 @@ export default {
       if (error)
         return res.status(400).json({ error: error.details[0].message });
 
-      const user = await userModel.findOne({ email: req.body.email });
+      const user = await UserModel.findOne({ email: req.body.email });
       if (!user) return res.status(400).json({ error: 'Invalid credentials' });
 
       const isMatch = await user.comparePassword(req.body.password);
@@ -36,14 +36,14 @@ export default {
       }
       const { user, email, password } = req.body;
 
-      const userExists = await userModel.findOne({ email });
+      const userExists = await UserModel.findOne({ email });
       if (userExists)
         return res.status(400).send({ error: 'User already exists' });
 
       const salt = genSaltSync(10);
       const hashedPassword = hashSync(password, salt);
 
-      const newUser = new userModel({
+      const newUser = new UserModel({
         ...user,
         email,
         password: hashedPassword
@@ -61,12 +61,20 @@ export default {
     }
   },
   // logout user
-  logout: async (req, res) => {},
+  logout: async (req, res) => {
+    try {
+      req.session.destroy();
+      res.clearCookie('token');
+      res.status(200).json({ message: 'Logged out successfully' });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
   // get user
   getUser: async (req, res) => {
     try {
       const { userId } = req.params;
-      const user = await userModel.findById(userId);
+      const user = await UserModel.findById(userId);
       if (!user) return res.status(404).json({ message: 'User not found' });
 
       return res.status(200).json(user);
@@ -78,7 +86,7 @@ export default {
   updateUser: async (req, res) => {
     try {
       const { userId } = req.params;
-      const user = await userModel.findByIdAndUpdate(userId, req.body, {
+      const user = await UserModel.findByIdAndUpdate(userId, req.body, {
         new: true
       });
       if (!user) return res.status(404).json({ message: 'User not found' });
@@ -92,7 +100,7 @@ export default {
   deleteUser: async (req, res) => {
     try {
       const { userId } = req.params;
-      const user = await userModel.findByIdAndDelete(userId);
+      const user = await UserModel.findByIdAndDelete(userId);
       if (!user) return res.status(404).json({ message: 'User not found' });
 
       return res.status(200).json({ message: 'User deleted successfully' });
