@@ -1,13 +1,6 @@
 import postModel from '../models/post.model';
 import userModel from '../models/user.model';
-import Joi from 'joi';
-
-const PostSchema = Joi.object({
-  authorId: Joi.string().required(),
-  title: Joi.string().required(),
-  content: Joi.string().required(),
-  image: Joi.string().required()
-});
+import { PostSchema } from '../types';
 
 export default {
   // Create and Save a new Post
