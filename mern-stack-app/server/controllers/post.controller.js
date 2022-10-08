@@ -1,5 +1,4 @@
-import postModel from '../models/post.model';
-import userModel from '../models/user.model';
+import { PostModel, UserModel } from '../models';
 import { PostSchema } from '../types';
 
 export default {
@@ -11,10 +10,10 @@ export default {
         return res.status(400).send({ message: error.details[0].message });
 
       const { authorId, title, content, image } = req.body;
-      const author = await userModel.findById(authorId);
+      const author = await UserModel.findById(authorId);
       if (!author) return res.status(404).json({ message: 'Author not found' });
 
-      const post = await postModel.create({
+      const post = await PostModel.create({
         author: authorId,
         title,
         content,
@@ -28,8 +27,7 @@ export default {
   // Retrieve and return all posts from the database.
   getPosts: async (req, res) => {
     try {
-      const posts = await postModel
-        .find({})
+      const posts = await PostModel.find({})
         .sort({ date: -1 })
         .populate('author');
 
@@ -42,7 +40,7 @@ export default {
   getPost: async (req, res) => {
     try {
       const { postId } = req.params;
-      const currentPost = await postModel.findById(postId).populate('author');
+      const currentPost = await PostModel.findById(postId).populate('author');
       if (!currentPost)
         return res.status(404).json({ message: 'Post not found' });
 
@@ -55,7 +53,7 @@ export default {
   updatePost: async (req, res) => {
     try {
       const { postId } = req.params;
-      const currentPost = await postModel.findByIdAndUpdate(postId, req.body, {
+      const currentPost = await PostModel.findByIdAndUpdate(postId, req.body, {
         new: true
       });
       if (!currentPost)
@@ -70,7 +68,7 @@ export default {
   deletePost: async (req, res) => {
     try {
       const { postId } = req.params;
-      const currentPost = await postModel.findByIdAndDelete(postId);
+      const currentPost = await PostModel.findByIdAndDelete(postId);
       if (!currentPost)
         return res.status(404).json({ message: 'Post not found' });
 
