@@ -7,7 +7,12 @@ export const PostSchema = Joi.object({
   image: Joi.string().required()
 });
 
-export const UserSchema = Joi.object({
+export const LoginSchema = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string().required()
+});
+
+export const RegisterSchema = Joi.object({
   user: Joi.object({
     name: Joi.string().required(),
     surname: Joi.string().required(),
