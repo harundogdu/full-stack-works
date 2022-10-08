@@ -1,4 +1,5 @@
 import { genSaltSync, hashSync } from 'bcryptjs';
+import { sign } from 'jsonwebtoken';
 import userModel from '../models/user.model';
 import { LoginSchema, RegisterSchema } from '../types';
 
@@ -26,8 +27,13 @@ export default {
         email,
         password: hashedPassword
       });
-      await newUser.save();
-      res.status(201).json({ message: 'User created successfully' });
+
+      const savedUser = await newUser.save();
+      const token = sign({ id: savedUser._id }, process.env.JWT_SECRET, {
+        expiresIn: '1d'
+      });
+
+      res.status(201).send({ token });
     } catch (error) {
       console.log(error);
       res.status(500).json({ message: 'Internal server error' });
