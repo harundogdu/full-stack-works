@@ -11,7 +11,7 @@ const PostSchema = Joi.object({
 
 export default {
   // Create and Save a new Post
-  create: async (req, res) => {
+  createPost: async (req, res) => {
     try {
       const { error } = PostSchema.validateAsync(req.body);
       if (error)
@@ -59,7 +59,20 @@ export default {
     }
   },
   // Update a post identified by the postId in the request
-  update: async (req, res) => {},
+  updatePost: async (req, res) => {
+    try {
+      const { postId } = req.params;
+      const currentPost = await postModel.findByIdAndUpdate(postId, req.body, {
+        new: true
+      });
+      if (!currentPost)
+        return res.status(404).json({ message: 'Post not found' });
+
+      return res.status(200).json(currentPost);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
   // Delete a post with the specified postId in the request
   delete: async (req, res) => {}
 };
