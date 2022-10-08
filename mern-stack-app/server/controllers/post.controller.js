@@ -74,5 +74,16 @@ export default {
     }
   },
   // Delete a post with the specified postId in the request
-  delete: async (req, res) => {}
+  deletePost: async (req, res) => {
+    try {
+      const { postId } = req.params;
+      const currentPost = await postModel.findByIdAndDelete(postId);
+      if (!currentPost)
+        return res.status(404).json({ message: 'Post not found' });
+
+      return res.status(200).json({ message: 'Post deleted' });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
 };
