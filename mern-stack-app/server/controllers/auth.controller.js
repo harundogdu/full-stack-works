@@ -5,7 +5,28 @@ import { LoginSchema, RegisterSchema } from '../types';
 
 export default {
   // login user
-  login: async (req, res) => {},
+  login: async (req, res) => {
+    try {
+      const { error } = LoginSchema.validate(req.body);
+      if (error)
+        return res.status(400).json({ error: error.details[0].message });
+
+      const user = await userModel.findOne({ email: req.body.email });
+      if (!user) return res.status(400).json({ error: 'Invalid credentials' });
+
+      const isMatch = await user.comparePassword(req.body.password);
+      if (!isMatch)
+        return res.status(400).json({ error: 'Invalid credentials' });
+
+      const token = sign({ id: user._id }, process.env.JWT_SECRET, {
+        expiresIn: '1d'
+      });
+
+      res.status(200).json({ token });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
   // register user
   register: async (req, res) => {
     try {
