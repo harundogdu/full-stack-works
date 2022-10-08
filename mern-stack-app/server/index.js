@@ -24,7 +24,7 @@ app.use(
 
 // Routes
 app.use('/api/auth', router.auth);
-app.use('/api/post', router.post);
+app.use('/api/posts', router.post);
 app.get('/', (req, res) => {
   res.json({
     status: 200,
