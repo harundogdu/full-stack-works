@@ -33,9 +33,20 @@ export default {
     }
   },
   // Retrieve and return all posts from the database.
-  findAll: async (req, res) => {},
+  getPosts: async (req, res) => {
+    try {
+      const posts = await postModel
+        .find({})
+        .sort({ date: -1 })
+        .populate('author');
+
+      return res.status(200).json(posts);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
   // Find a single post with a postId
-  findOne: async (req, res) => {},
+  getPost: async (req, res) => {},
   // Update a post identified by the postId in the request
   update: async (req, res) => {},
   // Delete a post with the specified postId in the request
