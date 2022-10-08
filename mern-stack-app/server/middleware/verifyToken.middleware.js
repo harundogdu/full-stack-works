@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-export const verifyToken = (req, res, next) => {
+const verifyToken = (req, res, next) => {
   let token = req.header('Authorization');
   if (!token) return res.status(401).json({ message: 'Unauthorized' });
 
@@ -12,3 +12,5 @@ export const verifyToken = (req, res, next) => {
     res.status(400).json({ message: 'Invalid Token' });
   }
 };
+
+export default verifyToken;
