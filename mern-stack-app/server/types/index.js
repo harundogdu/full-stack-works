@@ -12,12 +12,14 @@ export const LoginSchema = Joi.object({
   password: Joi.string().required()
 });
 
+const userSchema = Joi.object().keys({
+  name: Joi.string().required(),
+  surname: Joi.string().required(),
+  username: Joi.string().required()
+});
+
 export const RegisterSchema = Joi.object({
-  user: Joi.object({
-    name: Joi.string().required(),
-    surname: Joi.string().required(),
-    username: Joi.string().required()
-  }),
   email: Joi.string().email().required(),
-  password: Joi.string().required()
+  password: Joi.string().required(),
+  user: userSchema
 });

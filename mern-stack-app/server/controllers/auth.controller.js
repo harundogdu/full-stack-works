@@ -10,7 +10,7 @@ export default {
       const { error } = LoginSchema.validate(req.body);
       if (error)
         return res.status(400).json({ error: error.details[0].message });
-
+      /* exclude password  */
       const user = await UserModel.findOne({ email: req.body.email });
       if (!user) return res.status(400).json({ error: 'Invalid credentials' });
 
@@ -22,7 +22,16 @@ export default {
         expiresIn: '1d'
       });
 
-      res.status(200).json({ token });
+      res.status(201).send({
+        token,
+        user: {
+          id: user._id,
+          name: user.user.name,
+          surname: user.user.surname,
+          username: user.user.username,
+          email: user.email
+        }
+      });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
@@ -44,7 +53,7 @@ export default {
       const hashedPassword = bcrypt.hashSync(password, salt);
 
       const newUser = new UserModel({
-        ...user,
+        user,
         email,
         password: hashedPassword
       });
@@ -54,10 +63,16 @@ export default {
         expiresIn: '1d'
       });
 
-      res.status(201).send({ token });
+      res.status(201).send({
+        token,
+        user: {
+          id: savedUser._id,
+          user: savedUser.user,
+          email: savedUser.email
+        }
+      });
     } catch (error) {
-      console.log(error);
-      res.status(500).json({ message: 'Internal server error' });
+      res.status(500).json({ message: 'Internal server error', error });
     }
   },
   // logout user
@@ -74,7 +89,7 @@ export default {
   getUser: async (req, res) => {
     try {
       const { userId } = req.params;
-      const user = await UserModel.findById(userId);
+      const user = await UserModel.findById(userId, { password: 0 });
       if (!user) return res.status(404).json({ message: 'User not found' });
 
       return res.status(200).json(user);
