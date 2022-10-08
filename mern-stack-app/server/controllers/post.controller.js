@@ -29,7 +29,7 @@ export default {
     try {
       const posts = await PostModel.find({})
         .sort({ date: -1 })
-        .populate('author');
+        .populate('author', '-password');
 
       return res.status(200).json(posts);
     } catch (error) {
