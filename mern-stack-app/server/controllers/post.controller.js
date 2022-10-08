@@ -1,5 +1,5 @@
-import { PostModel, UserModel } from '../models';
-import { PostSchema } from '../types';
+import { PostModel, UserModel } from '../models/index.js';
+import { PostSchema } from '../types/index.js';
 
 export default {
   // Create and Save a new Post

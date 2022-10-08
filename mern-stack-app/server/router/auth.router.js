@@ -1,14 +1,14 @@
 import express from 'express';
-import { AuthController } from '../controllers';
+import AuthController from '../controllers/auth.controller.js';
 
-const Router = express.Router();
+const router = express.Router();
 
-Router
-    .route('/signup').post(AuthController.register)
-    .route('/login').post(AuthController.login)
-    .route('/logout').post(AuthController.logout)
-    .route('/user/:userId').get(AuthController.getUser)
-    .route('/user/:userId').put(AuthController.updateUser)
-    .route('/user/:userId').delete(AuthController.deleteUser);
+router.route('/signup').post(AuthController.register);
+router.route('/login').post(AuthController.login);
+router.route('/logout').post(AuthController.logout);
+router.route('/user/:userId')
+  .get(AuthController.getUser)
+  .put(AuthController.updateUser)
+  .delete(AuthController.deleteUser);
 
-export default Router;
+export default router;

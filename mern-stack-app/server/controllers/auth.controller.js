@@ -1,7 +1,7 @@
-import { genSaltSync, hashSync } from 'bcryptjs';
-import { sign } from 'jsonwebtoken';
-import { UserModel } from '../models';
-import { LoginSchema, RegisterSchema } from '../types';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import { UserModel } from '../models/index.js';
+import { LoginSchema, RegisterSchema } from '../types/index.js';
 
 export default {
   // login user
@@ -14,11 +14,11 @@ export default {
       const user = await UserModel.findOne({ email: req.body.email });
       if (!user) return res.status(400).json({ error: 'Invalid credentials' });
 
-      const isMatch = await user.comparePassword(req.body.password);
+      const isMatch = await bcrypt.compare(req.body.password, user.password);
       if (!isMatch)
         return res.status(400).json({ error: 'Invalid credentials' });
 
-      const token = sign({ id: user._id }, process.env.JWT_SECRET, {
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
         expiresIn: '1d'
       });
 
@@ -40,8 +40,8 @@ export default {
       if (userExists)
         return res.status(400).send({ error: 'User already exists' });
 
-      const salt = genSaltSync(10);
-      const hashedPassword = hashSync(password, salt);
+      const salt = bcrypt.genSaltSync(10);
+      const hashedPassword = bcrypt.hashSync(password, salt);
 
       const newUser = new UserModel({
         ...user,
@@ -50,7 +50,7 @@ export default {
       });
 
       const savedUser = await newUser.save();
-      const token = sign({ id: savedUser._id }, process.env.JWT_SECRET, {
+      const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET, {
         expiresIn: '1d'
       });
 

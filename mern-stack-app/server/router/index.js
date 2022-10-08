@@ -1,6 +1,9 @@
+import AuthRouter from './auth.router.js';
+import PostRouter from './post.router.js';
+
 const Router = {
-  auth: import('./auth.router'),
-  post: import('./post.router')
+  auth : AuthRouter,
+  post : PostRouter
 };
 
 export default Router;

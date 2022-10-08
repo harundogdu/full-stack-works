@@ -1,2 +1,2 @@
-export { default as AuthController } from './auth.controller';
-export { default as PostController } from './post.controller';
+export { default as AuthController } from './auth.controller.js';
+export { default as PostController } from './post.controller.js';
