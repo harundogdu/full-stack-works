@@ -7,10 +7,20 @@ const PostSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
     },
-    image: { type: String, required: true },
-    title: { type: String, required: true, unique: true },
-    content: { type: String, required: true },
-    slug: { type: String, required: true, unique: true },
+    image: {
+      type: String,
+      required: true
+    },
+    title: {
+      type: String,
+      required: true,
+      unique: true
+    },
+    content: {
+      type: String,
+      required: true
+    },
+    slug: { type: String, unique: true },
     date: { type: Date, default: Date.now }
   },
   {
