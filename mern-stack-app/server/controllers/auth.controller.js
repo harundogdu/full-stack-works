@@ -1,3 +1,4 @@
+import { genSaltSync, hashSync } from 'bcryptjs';
 import userModel from '../models/user.model';
 import { LoginSchema, RegisterSchema } from '../types';
 
@@ -5,7 +6,33 @@ export default {
   // login user
   login: async (req, res) => {},
   // register user
-  register: async (req, res) => {},
+  register: async (req, res) => {
+    try {
+      const { error } = RegisterSchema.validate(req.body);
+      if (error) {
+        return res.status(400).send({ error: error.details[0].message });
+      }
+      const { user, email, password } = req.body;
+
+      const userExists = await userModel.findOne({ email });
+      if (userExists)
+        return res.status(400).send({ error: 'User already exists' });
+
+      const salt = genSaltSync(10);
+      const hashedPassword = hashSync(password, salt);
+
+      const newUser = new userModel({
+        ...user,
+        email,
+        password: hashedPassword
+      });
+      await newUser.save();
+      res.status(201).json({ message: 'User created successfully' });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  },
   // logout user
   logout: async (req, res) => {},
   // get user
