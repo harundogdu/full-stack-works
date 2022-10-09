@@ -1,5 +1,6 @@
 import { PostModel, UserModel } from '../models/index.js';
 import { PostSchema } from '../types/index.js';
+import jwt from 'jsonwebtoken';
 
 export default {
   // Create and Save a new Post
@@ -9,15 +10,19 @@ export default {
       if (error)
         return res.status(400).send({ message: error.details[0].message });
 
-      const { authorId, title, content, image } = req.body;
-      const author = await UserModel.findById(authorId);
+      const { title, content, image, tag } = req.body;
+      const token = req.headers.authorization.split(' ')[1];
+
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const author = await UserModel.findById(decoded.id);
       if (!author) return res.status(404).json({ message: 'Author not found' });
 
       const post = await PostModel.create({
-        author: authorId,
+        author : author._id,
         title,
         content,
-        image
+        image,
+        tag
       });
       return res.status(201).json(post);
     } catch (error) {

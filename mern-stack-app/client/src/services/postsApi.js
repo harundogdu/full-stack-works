@@ -21,7 +21,7 @@ export const postApi = createApi({
     }),
     addPost: builder.mutation({
       query: body => ({
-        url: `/posts/create`,
+        url: `/posts/post`,
         method: 'POST',
         body,
         headers: postsApiHeaders

@@ -1,10 +1,10 @@
 import Joi from 'joi';
 
 export const PostSchema = Joi.object({
-  authorId: Joi.string().required(),
   title: Joi.string().required(),
   content: Joi.string().required(),
-  image: Joi.string().required()
+  image: Joi.string().required(),
+  tag: Joi.string().required()
 });
 
 export const LoginSchema = Joi.object({

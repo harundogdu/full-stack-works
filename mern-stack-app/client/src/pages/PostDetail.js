@@ -47,7 +47,7 @@ function PostDetail() {
             <div className='flex items-center justify-between'>
               <AiOutlineUser className='text-gray-600' />
               <p className='font-bold' title='Post Author'>
-                {detail?.author?.name}
+                {detail?.author?.user?.name}
               </p>
             </div>
             <div className='flex items-center justify-between'>
