@@ -83,7 +83,7 @@ function CustomTable({ data, isLoading , handleUpdateClick }) {
 
                                 <Td className="!text-center" w={175}>
                                     <span className="font-semibold text-sm">
-                                        {post?.author?.name}
+                                        {post?.author?.user?.name}
                                     </span>
                                 </Td>
 

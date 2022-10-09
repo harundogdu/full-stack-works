@@ -10,6 +10,15 @@ function Home({ isAddPost, setIsAddPost }) {
   const [posts, setPosts] = React.useState([]);
 
   useEffect(() => {
+    if (isAddPost) {
+      ToastEmit('success', 'Post added successfully!');
+      setTimeout(() => {
+        setIsAddPost(false);
+      }, 4000);
+    }
+  }, [isAddPost, setIsAddPost]);
+
+  useEffect(() => {
     if (data) {
       setPosts(data);
     }
@@ -24,13 +33,6 @@ function Home({ isAddPost, setIsAddPost }) {
 
   if (error) {
     return <Error error={error} />;
-  }
-
-  if (isAddPost) {
-    ToastEmit('success', 'Post added successfully!');
-    setTimeout(() => {
-      setIsAddPost(false);
-    }, 4000);
   }
 
   return (
