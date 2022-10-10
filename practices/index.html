@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Timer</title>
+        <style>
+            body {
+                background-color: #242424;
+                color: #fefefe;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                margin: 0;
+                padding: 0;
+            }
+
+            #container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+            }
+
+            .btnContainer {
+                display: flex;
+                gap: 10px;
+            }
+
+            .btnContainer button {
+                font-size: 18px;
+                background-color: #fff;
+                border: 1px solid #fff;
+                padding: 8px 18px;
+            }
+
+            #timerViewer {
+                text-align: center;
+                font-size: 32px;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <div id="container">
+            <div class="btnContainer">
+                <button id="btnStart">Start Timer</button>
+                <button id="btnPause">Pause Timer</button>
+                <button id="btnStop">Stop Timer</button>
+            </div>
+            <p id="timerViewer">0 s</p>
+        </div>
+        <script>
+            let startTime, finalTime, timerInterval, isPaused = false, tempTime = 0;
+            const btnStart = document.querySelector('#btnStart')
+            const btnStop = document.querySelector('#btnStop')
+            const btnPause = document.querySelector('#btnPause')
+            const timerViewer = document.querySelector('#timerViewer')
+
+            const handleTimerInterval = (time) => {
+                if (!isPaused) {
+                    timerInterval = setInterval(() => {
+                        time++;
+                        tempTime = time;
+                        timerViewer.innerHTML = `${time} s`
+                    }, 1000)
+                }
+            }
+
+            const handleTimerPause = () => {
+                if (isPaused) {
+                    isPaused = false;
+                    btnPause.textContent = 'Pause Timer'
+                    handleTimerInterval(tempTime)
+                } else {
+                    isPaused = true;
+                    btnPause.textContent = 'Resume Timer'
+                    clearInterval(timerInterval)
+                }
+            }
+
+            const handleTimerStart = () => {
+                btnStart.disabled = true;
+                startTime = tempTime;
+                handleTimerInterval(startTime)
+            }
+
+            const handleTimerStop = () => {
+                alert(`Timer Stopped at ${tempTime} s`)
+                btnStart.disabled = false;
+                clearInterval(timerInterval);
+                timerViewer.innerHTML = '0 s';
+                tempTime = 0;
+            }
+
+            const main = () => {
+                handleTimerStart();
+            }
+
+            btnStop.addEventListener('click', handleTimerStop)
+            btnStart.addEventListener('click', handleTimerStart)
+            btnPause.addEventListener('click', handleTimerPause)
+            window.addEventListener('load', main)
+        </script>
+    </body>
+
+</html>
