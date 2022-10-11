@@ -56,7 +56,7 @@ function Login() {
                 />
                 <Input
                   type='email'
-                  placeholder='Enter ur email adress...'
+                  placeholder='Enter ur email address...'
                   name='email'
                   required
                   {...register('email')}
