@@ -18,11 +18,11 @@ function Navbar({ isOpen, setIsOpen }) {
         navigate('/');
     };
 
-    React.useEffect(() => {
+ /*    React.useEffect(() => {
         if (!isAuthenticated) {
 
         }
-    }, [isAuthenticated])
+    }, [isAuthenticated]) */
 
     return (
         <>

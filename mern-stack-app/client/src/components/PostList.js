@@ -4,9 +4,7 @@ import { NotYetSharedPost } from './NotYetSharedPost';
 import Loading from './Loading';
 
 function PostList({ posts, loading }) {
-  if (loading) {
-    return <Loading />;
-  }
+  if (loading) return <Loading />;
   return (
     <>
       {posts.length > 0 ? (
