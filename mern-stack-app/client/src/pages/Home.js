@@ -1,6 +1,5 @@
-import Error from 'components/Error';
-import Loading from 'components/Loading';
-import PostList from 'components/PostList';
+import { Error, Loading, PostList } from 'components';
+
 import React, { useEffect } from 'react';
 import { useGetAllPostsQuery } from 'services/postsApi';
 import { ToastEmit, Toast } from 'utils/flashMessages';
